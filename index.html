@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pembaca Buku Saya</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+  <style type="text/css">
+    body { margin: 0; }
+    #viewer {
+      height: 100vh;
+      width: 100vw;
+    }
+    #prev, #next {
+      position: fixed;
+      top: 50%;
+      margin-top: -32px;
+      font-size: 64px;
+      font-weight: bold;
+      color: #333;
+      text-decoration: none;
+      z-index: 100;
+      padding: 0 10px;
+      opacity: 0.5;
+    }
+    #prev { left: 10px; }
+    #next { right: 10px; }
+    #prev:hover, #next:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div id="viewer"></div>
+  <a id="prev" href="#prev">&lt;</a>
+  <a id="next" href="#next">&gt;</a>
+
+<script>
+  // GANTI NAMA FILE DI BAWAH INI
+  var book = ePub("Marion Franklin - The HeART of Laser.epub"); 
+  // GANTI DENGAN NAMA FILE EPUB ANDA PERSIS
+
+  var rendition = book.renderTo("viewer", {
+    width: "100%",
+    height: "100%"
+  });
+
+  rendition.display();
+
+  // Navigasi
+  var next = document.getElementById("next");
+  next.addEventListener("click", function(e){
+    rendition.next();
+    e.preventDefault();
+  }, false);
+
+  var prev = document.getElementById("prev");
+  prev.addEventListener("click", function(e){
+    rendition.prev();
+    e.preventDefault();
+  }, false);
+
+  // Navigasi dengan keyboard
+  document.addEventListener("keyup", function(e){
+    if (e.keyCode == 37) {
+      rendition.prev();
+    }
+    if (e.keyCode == 39) {
+      rendition.next();
+    }
+  }, false);
+
+</script>
+</body>
+</html>
